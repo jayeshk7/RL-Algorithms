@@ -43,7 +43,8 @@ for i in range(100000):
     for j in range(len(episodes)):
     
         if episodes[j][0] < 22:
-            observed_states.append((episodes[j][0], episodes[j][1], episodes[j][4], episodes[j][2]))      # states observed. Tuple (our hand, dealer hand, usable ace, action)
+            observed_states.append((episodes[j][0], episodes[j][1], episodes[j][4], episodes[j][2]))      
+            # observed_states contains : tuple (our hand, dealer hand, usable ace, action)
             state_occur[(episodes[j][0], episodes[j][1], episodes[j][4])] += 1                            # increasing count of current state
 
     rewards = episodes[j][3]
