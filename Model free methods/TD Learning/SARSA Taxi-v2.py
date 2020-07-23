@@ -31,7 +31,7 @@ total_reward = 0
 state = env.reset()             # returns the state of the environment 
 
 # since TD is online learning algo, no need to generate episode like in MC control
-for iteration in range(100000):
+for iteration in range(80000):
 
     # policy evaluation
     nextstate, reward, done, _ = env.step(policy[state])

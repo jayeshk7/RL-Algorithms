@@ -11,6 +11,7 @@ You need to have OpenAI gym installed in your machine, it already has the blackj
 **Resources**:
 1. Chapter 5 of the book : Introduction to Reinforcement Learning by Sutton and Barto
 2. David Silver's amazing lectures on YouTube
+
 I have also added comments in my code. Hopefully, it made the code easy to follow.
 
 
