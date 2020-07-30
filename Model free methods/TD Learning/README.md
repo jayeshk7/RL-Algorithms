@@ -2,7 +2,6 @@
 
 Algorithms implemented:
 - [x] SARSA
-- [x] Q-Learning
+- [x] Q-Learning/SARSAMAX
 - [ ] Double Q-Learning
 - [ ] Expected SARSA
-- [ ] SARSA-MAX
