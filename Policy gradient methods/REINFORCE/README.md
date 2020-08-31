@@ -5,7 +5,4 @@ This is my implementation of the classi Monte carlo policy gradient algorithm al
 
 ### Cartpole-v0
 Trained for 800 episodes : 
-![image](better one.png)
-
-### MountainCar-v0
-Trained for 4000 episodes :
+![image](/home/kandpal/Desktop/RL Algorithms/Policy gradient methods/REINFORCE/Cartpole_result.png)
