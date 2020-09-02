@@ -5,7 +5,7 @@ from utils import generate_episode, plot
 import numpy as np
 import gym
 
-env = gym.make('MountainCar-v0')
+env = gym.make('CartPole-v0')
 
 state_space = env.observation_space.shape[0]
 action_space = env.action_space.n
@@ -16,7 +16,7 @@ optimizer = torch.optim.Adam(policy_network.parameters(), lr = alpha)
 
 ## TRAIN
 
-episodes = 4000
+episodes = 1000
 rewards = []
 
 for episode in range(episodes):
@@ -37,7 +37,7 @@ for episode in range(episodes):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
-    if (episode+1)%400 == 0:
+    if (episode+1)%100 == 0:
       print(f'{episode+1}th episode; average reward of past 100 episodes :', np.mean(rewards[-100:]))              # PRINTING AVG OF LAST 100 EPISODES
 
 
