@@ -4,6 +4,8 @@ import torch.nn.functional as F
 import gym
 import numpy as np
 from DQN import DQN, choose_action
+from collections import deque
+import random
 
 env = gym.make('CartPole-v0')
 env.unwrapped
@@ -19,26 +21,51 @@ alpha = 0.003
 optimizer = torch.optim.Adam(behaviour.parameters(), lr = alpha)
 lossfn = nn.MSELoss()
 
-state_replay = []
-action_replay = []
-nextstate_replay = []
-reward_replay = []
+replay_buffer = deque([])
+episode_reward = []
 episodes = 1000
 epsilon = 0.9
+MEMORY = 10000
 
-state = env.reset()
+
 for episode in range(episodes):
 
-    action = choose_action(state, epsilon, env, target)
-    nextstate, reward, done, _ = env.step(action)
-    state_replay.append(state)
-    reward_replay.append(reward)
-    nextstate_replay.append(nextstate)
-    action_replay.append(action)
+    state = env.reset()
+    done = False
+    total_reward = 0
+    while not done:
+        action = choose_action(state, epsilon, env, target)
+        nextstate, reward, done, _ = env.step(action)
+        experience = (state, action, reward, nextstate)
+        total_reward += reward
+        
+        # ADDING EXPERIENCE
+        if len(replay_buffer) < MEMORY:
+            replay_buffer.append(experience)
+        else:
+            replay_buffer.popleft()
+            replay_buffer.append(experience)
 
-    if len(states) < 64:
-        continue
-    batch = np.random.choice(len(states), 64, replace=False)
-    batch_index = np.arange(32, dtype = np.int32)
+        # TRAINING NETWORK
+        if len(replay_buffer) >= 32:
+            batch_buffer = random.sample(replay_buffer, 32)
+            s, a, r, ns = map(np.stack, zip(*batch_buffer))             # SHAPE = 32x4
+
+            target_qvalue, _ = torch.max(target(ns), 1)
+            target_qvalue = torch.tensor(r) + target_qvalue
+            prediction = torch.max(behaviour(s), 1)
+            print(prediction, target_qvalue)
+            loss = lossfn(prediction, target_qvalue)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+        
+        state = nextstate
+    
+    if (episode+1)%100 == 0:
+        print(f'episode number {episode + 1}; average reward of last 100 episodes = {np.mean(episode_reward[-100:])}')
+        target.load_state_dict(behaviour.state_dict())
+
+            
 
      

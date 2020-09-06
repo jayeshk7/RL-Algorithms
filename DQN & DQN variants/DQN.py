@@ -14,7 +14,7 @@ def choose_action(state, epsilon, env, target):
 
 class DQN(nn.Module):
     def __init__(self, state_space, action_space):
-        super(network, self).__init__()
+        super(DQN, self).__init__()
 
         self.linear1 = nn.Linear(state_space, 256)
         self.linear2 = nn.Linear(256, 128)
@@ -26,3 +26,5 @@ class DQN(nn.Module):
         hidden = F.relu(self.linear1(state))
         hidden2 = F.relu(self.linear2(hidden))
         output = self.out(hidden2)
+
+        return output
