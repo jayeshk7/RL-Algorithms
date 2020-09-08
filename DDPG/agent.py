@@ -5,6 +5,8 @@ import gym
 from ddpg import *
 from collections import deque
 import random
+import matplotlib.pyplot as plt 
+from scipy.ndimage import gaussian_filter
  
 env = gym.make('Pendulum-v0')
 env.unwrapped
@@ -13,24 +15,28 @@ state_space = env.observation_space.shape[0]
 
 behaviour_critic = ddpg_critic(state_space, action_space).cuda()
 target_critic = ddpg_critic(state_space, action_space).cuda()
+target_critic.eval()
 target_critic.load_state_dict(behaviour_critic.state_dict())
 
 behaviour_actor = ddpg_actor(state_space, action_space).cuda()
 target_actor = ddpg_actor(state_space, action_space).cuda()
+target_actor.eval()
 target_actor.load_state_dict(behaviour_actor.state_dict())
 
 
-episodes = 4000
-BATCH_SIZE = 32                   
-MEMORY = 10000                    # REPLAY MEMORY CAPACITY
+episodes = 12000
+episode_length = 200              # THIS IS REQUIRED BECAUSE THE EPISODE NEVER ENDS (DONE == FALSE ALWAYS)
+BATCH_SIZE = 64                   
+MEMORY = 1000000                  # REPLAY MEMORY CAPACITY
 TAU = 0.001                       # FOR POLYAK AVERAGING
 replay_buffer = deque([])         # INITIALISED REPLAY BUFFER
 episode_reward = []
 
-alpha = 0.003
+alpha_critic = 0.001
+alpha_actor = 0.0001
 lossfn = nn.MSELoss()
-critic_optimizer = torch.optim.Adam(behaviour_critic.parameters(), lr = alpha)
-actor_optimizer = torch.optim.Adam(behaviour_actor.parameters(), lr = alpha)
+critic_optimizer = torch.optim.Adam(behaviour_critic.parameters(), lr = alpha_critic)
+actor_optimizer = torch.optim.Adam(behaviour_actor.parameters(), lr = alpha_actor)
 
 
 for episode in range(episodes):
@@ -38,11 +44,11 @@ for episode in range(episodes):
     state = env.reset()
     done = False
     total_reward = 0
-    while not done:
+    for _ in range(episode_length):
         # SELECT ACTION
-        action = behaviour_actor.actor_forward(state)
-        action = action + torch.randn(1).cuda()              # ADDING NOISE FOR EXPLORATION
-        nextstate, reward, done, _ = env.step([action.item()])
+        action = behaviour_actor.actor_forward(state).detach().cpu()
+        action = action + torch.randn(1)                      # ADDING NOISE FOR EXPLORATION
+        nextstate, reward, _, _ = env.step([action.item()])
         total_reward += reward
         
         # STORE THE TRANSITION
@@ -57,11 +63,15 @@ for episode in range(episodes):
         if len(replay_buffer) >= BATCH_SIZE :
             batch_buffer = random.sample(replay_buffer, BATCH_SIZE)
             s, a, r, ns = map(np.stack, zip(*batch_buffer))              # LEARNT SOMETHING NEW HERE
+            s = torch.FloatTensor(s)
+            a = torch.FloatTensor(a).view(-1,1).cuda()
+            r = torch.FloatTensor(r).view(-1,1).cuda()
+            ns = torch.FloatTensor(ns)
 
             # UPDATE THE CRITIC
             ns_actions = target_actor.actor_forward(ns)
-            target_qvalues = torch.FloatTensor(r).view(-1,1).cuda() + target_critic.critic_forward(ns, ns_actions)
-            predicted_qvalues = behaviour_critic.critic_forward(s, torch.unsqueeze(torch.FloatTensor(a),1))
+            target_qvalues = r + target_critic.critic_forward(ns, ns_actions)
+            predicted_qvalues = behaviour_critic.critic_forward(s, a)
             loss_critic = lossfn(predicted_qvalues, target_qvalues)
 
             critic_optimizer.zero_grad()
@@ -69,7 +79,7 @@ for episode in range(episodes):
             critic_optimizer.step()
 
             # UPDATE THE ACTOR 
-            loss_actor = behaviour_critic.critic_forward(s, torch.unsqueeze(torch.FloatTensor(a),1))
+            loss_actor = behaviour_critic.critic_forward(s, behaviour_actor.actor_forward(s))
             loss_actor = -loss_actor.mean()
             actor_optimizer.zero_grad()
             loss_actor.backward()
@@ -90,5 +100,9 @@ for episode in range(episodes):
 
 
     episode_reward.append(total_reward)
-    if (episode+1)%500 == 0:
-        print(f'episode number {episode+1}; average reward of last 100 episodes = {np.mean(episode_reward[-100:])}')
+    if (episode+1)%600 == 0:
+        print(f'episode number {episode+1}; average reward of last 200 episodes = {np.mean(episode_reward[-200:])}')
+
+
+plt.plot(episode_reward)
+plt.plot(gaussian_filter(episode_reward, 25))

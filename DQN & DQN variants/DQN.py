@@ -7,7 +7,9 @@ import torch.nn.functional as F
 def choose_action(state, epsilon, env, target):
     chance = np.random.uniform(0,1)
     if chance > epsilon :
-        return torch.argmax(target.forward(state)).item()
+        action = target.forward(state)
+        action = torch.argmax(action)
+        return action.item()
     else:
         return env.action_space.sample()
 
@@ -22,7 +24,7 @@ class DQN(nn.Module):
 
     def forward(self, state):
 
-        state = torch.FloatTensor(state)
+        state = torch.FloatTensor(state).cuda()
         hidden = F.relu(self.linear1(state))
         hidden2 = F.relu(self.linear2(hidden))
         output = self.out(hidden2)
