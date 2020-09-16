@@ -24,7 +24,7 @@ target_actor.eval()
 target_actor.load_state_dict(behaviour_actor.state_dict())
 
 
-episodes = 12000
+episodes = 8000
 episode_length = 200              # THIS IS REQUIRED BECAUSE THE EPISODE NEVER ENDS (DONE == FALSE ALWAYS)
 BATCH_SIZE = 64                   
 MEMORY = 1000000                  # REPLAY MEMORY CAPACITY
@@ -32,8 +32,8 @@ TAU = 0.001                       # FOR POLYAK AVERAGING
 replay_buffer = deque([])         # INITIALISED REPLAY BUFFER
 episode_reward = []
 
-alpha_critic = 0.001
-alpha_actor = 0.0001
+alpha_critic = 0.0003
+alpha_actor = 0.0003
 lossfn = nn.MSELoss()
 critic_optimizer = torch.optim.Adam(behaviour_critic.parameters(), lr = alpha_critic)
 actor_optimizer = torch.optim.Adam(behaviour_actor.parameters(), lr = alpha_actor)
@@ -100,9 +100,17 @@ for episode in range(episodes):
 
 
     episode_reward.append(total_reward)
-    if (episode+1)%600 == 0:
+    if (episode+1)%200 == 0:
         print(f'episode number {episode+1}; average reward of last 200 episodes = {np.mean(episode_reward[-200:])}')
-
+        x = env.reset()
+        for i in range(200) :
+            env.render()
+            u = target_actor.actor_forward(x)
+            x_, _, _, _ = env.step([action.item()])
+            if done :
+                break
+            x = x_
 
 plt.plot(episode_reward)
 plt.plot(gaussian_filter(episode_reward, 25))
+
