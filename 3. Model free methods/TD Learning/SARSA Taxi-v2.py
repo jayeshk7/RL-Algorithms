@@ -10,8 +10,8 @@ env.unwrapped
 # actions : {0,1,2,3,4,5} = {south, north, east, west, pickup, dropoff}
 
 
-print(env.observation_space)       # Discrete(500)
-print(env.action_space)            # Discrete(6)
+# Observation space = Discrete(500)
+# Action space = Discrete(6)
 action_space = [0,1,2,3,4,5]
 
 q_values = {}
@@ -31,7 +31,7 @@ total_reward = 0
 state = env.reset()             # returns the state of the environment 
 
 # since TD is online learning algo, no need to generate episode like in MC control
-for iteration in range(80000):
+for iteration in range(100000):
 
     # policy evaluation
     nextstate, reward, done, _ = env.step(policy[state])
@@ -43,7 +43,6 @@ for iteration in range(80000):
     # (epsilon greedy) policy improvement
     for i in range(env.observation_space.n):
         temp_policy = []
-
         for j in action_space:
             temp_policy.append(q_values[(i,j)])
 
@@ -65,15 +64,10 @@ for iteration in range(80000):
 
 
 # plot average rewards
-plt.subplot(121)
 plt.title('Rewards per timestep')
 plt.xlabel('Episodes')
 plt.ylabel('Rewards')
 plt.plot(rewards)
-plt.subplot(122)
-plt.title('Gaussian filter with sigma = 10')
-plt.xlabel('Episodes')
-plt.ylabel('Rewards')
 plt.plot(gaussian_filter(rewards, sigma = 10))
 plt.show()
 

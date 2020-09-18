@@ -1,32 +1,30 @@
 # Reinforcement Learning
 
-This repository is a compilation of all the topics I studied and algorithms I implemented while studying this weird but awesome field. 
+All the algorithms I implemented while reading Introduction to Reinforcement Learning by Sutton and Barto.
 
-*There's a separate detailed ReadMe for each topic*
+*There's a separate ReadMe for each topic*
 
-### What's in this repo?
-This has my (hopefully working) implementations of all the algorithms I studied. There's mainly two sections here :
-1. Classical RL
-    - [Bandits]
-    - [Dynamic programming methods]
-    - [Model free methods]
-    This part is where I learnt the important reinforcement learning concepts. All the implementations are done using python and numpy. 
-2. Deep RL
-    - [DQN variants]
-        - [Deep Q-Networks] (DQN)
-        - [Double DQN]
-        - [Dueling DQN]
-        - [DRQN] (Deep Recurrent Q-Networks)
-    - [Vanilla policy gradients]
-        - [REINFORCE]
-        - [Advantage actor-critic]
-    - [Deterministic policy gradients]
-        - [Deep Deterministic Policy Gradients] (DDPG)
-        - [Twin Delayed DDPG] (TD3)
+High Level structure of the repo :
+1. [Bandits]
+    - [Epsilon-greedy]
+    - [Optimistic initial value]
+    - [Softmax]
+2. [Dynamic Programming methods]
+    - [Policy iteration]
+    - [Value iteration]
+3. [Model free methods]
+    - [Monte Carlo] 
+        - [x] On-Policy Monte Carlo
+        - [ ] Off-policy Monte Carlo using Importance Sampling
+    - [Temporal difference methods]
+        - [x] Q-Learning
+        - [x] SARSA   
 
-### Resources 
-1. Introduction to Reinforcement Learning by Sutton and Barto 
-2. David Silver's amazing lectures
-3. Stanford CS234 
-These are the main resources that I used for studying. 
-Check out this goldmine of resources!  
+### Resources . 
+1. [Introduction to Reinforcement Learning by Sutton and Barto](http://incompleteideas.net/book/RLbook2020.pdf)
+2. [David Silver's amazing lectures](https://www.youtube.com/results?search_query=david+silver+rl)
+3. [Stanford CS234](https://www.youtube.com/playlist?list=PLoROMvodv4rOSOPzutgyCTapiGlY2Nd8u) 
+(CS234 and David silver often use different notations, it would be better to follow just one of them in the beginning)
+
+
+Also [check this out](https://github.com/IvLabs/resources) for more resources!
