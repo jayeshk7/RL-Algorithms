@@ -6,22 +6,19 @@ All the algorithms I implemented while reading Introduction to Reinforcement Lea
 
 High Level structure of the repo :
 1. [Bandits](https://github.com/jayeshk7/RL-Algorithms/tree/master/1.%20Bandits)
-    - [x] Epsilon-greedy
-    - [x] Optimistic initial value
-    - [x] Softmax exploration
-    - [ ] UCB
-    - [ ] Median elimination
-    - [ ] Thompson Sampling 
+    - Epsilon-greedy
+    - Optimistic initial value
+    - Softmax exploration
 2. [Dynamic Programming methods](https://github.com/jayeshk7/RL-Algorithms/tree/master/2.%20DP%20methods)
-    - [x] Policy iteration
-    - [x] Value iteration
+    - Policy iteration
+    - Value iteration
 3. [Model free methods](https://github.com/jayeshk7/RL-Algorithms/tree/master/3.%20Model%20free%20methods)
     - [Monte Carlo control](https://github.com/jayeshk7/RL-Algorithms/tree/master/3.%20Model%20free%20methods/Monte%20Carlo) 
-        - [x] On-Policy Monte Carlo
-        - [ ] Off-policy Monte Carlo using Importance Sampling
+        - On-Policy Monte Carlo
+        - Off-policy Monte Carlo using Importance Sampling
     - [Temporal-difference methods](https://github.com/jayeshk7/RL-Algorithms/tree/master/3.%20Model%20free%20methods/TD%20Learning)
-        - [x] Q-Learning
-        - [x] SARSA   
+        - Q-Learning
+        - SARSA   
 
 ### Resources 
 (CS234 and David silver often use different notations, it would be better to follow just one of them in the beginning)
