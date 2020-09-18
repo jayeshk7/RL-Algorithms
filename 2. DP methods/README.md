@@ -14,5 +14,5 @@ In settings where we know how the world/environment works, there are some simple
 
 ### Resources
 1. Chapters 2 and 3 from [Sutton and Barto]()
-2. David Silver's course - lectures 1, 2 and 3
-3. Stanford CS234 - lecture 1 and 2
+2. David Silver's course - [lectures 1, 2 and 3](https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ)
+3. Stanford CS234 - [lecture 1 and 2](https://www.youtube.com/playlist?list=PLoROMvodv4rOSOPzutgyCTapiGlY2Nd8u) 
