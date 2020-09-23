@@ -9,8 +9,6 @@ One drawback of dynamic programming methods is that it needs the transition dyna
 - [x] Q-Learning
 - [x] SARSA
 
-### Results and plots
-
 ### Resources
 1. Chapter 4, 5 and 6 from [Sutton and Barto](http://incompleteideas.net/book/RLbook2020.pdf)
 2. David Silver's course - [Lectures  4 and 5](https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ)

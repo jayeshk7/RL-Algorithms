@@ -13,7 +13,7 @@ Temporal difference learning is a family of algorithms in which the agent estima
 - [ ] Expected SARSA
 
 ### Results
-(i have the results just paste the graph here)
+(results ready need to put gifs and graph)
 
 ### Resources:
 1. Chapter 5 from [Sutton and Barto](http://incompleteideas.net/book/RLbook2020.pdf)

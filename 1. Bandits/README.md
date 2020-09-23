@@ -15,8 +15,5 @@ The agent needs to *explore* as well as *exploit* it's current knowledge of whic
 - [ ] Median Elimination 
 - [ ] Thompson Sampling
 
-### Results
-(no results right now, get some graphs/comparisons) 
-
 ### Resources
 1. Chapters 1 and 2 from [Sutton and Barto](http://incompleteideas.net/book/RLbook2020.pdf)

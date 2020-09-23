@@ -9,9 +9,6 @@ In settings where we know how the world/environment works, there are some simple
 - [x] Policy Iteration
 - [x] Value Iteration
 
-### Results
-(i dont have results rn just put a gif and reward graph)
-
 ### Resources
 1. Chapters 2 and 3 from [Sutton and Barto]()
 2. David Silver's course - [lectures 1, 2 and 3](https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ)
