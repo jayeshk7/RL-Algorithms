@@ -23,7 +23,7 @@ High Level structure of the repo :
 ### Resources 
 CS234 and David silver often use different notations, it would be better to follow just one of them in the beginning (I prefer David Silver's lectures)
 1. [Introduction to Reinforcement Learning by Sutton and Barto](http://incompleteideas.net/book/RLbook2020.pdf)
-2. [David Silver's amazing lectures](https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ)
+2. [David Silver's lectures](https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ)
 3. [Stanford CS234](https://www.youtube.com/playlist?list=PLoROMvodv4rOSOPzutgyCTapiGlY2Nd8u) 
 
 
