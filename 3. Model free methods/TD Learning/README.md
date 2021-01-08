@@ -15,6 +15,8 @@ Temporal difference learning is a family of algorithms in which the agent estima
 ### Results
 ![taxi_sarsa](https://github.com/jayeshk7/RL-Algorithms/blob/master/3.%20Model%20free%20methods/TD%20Learning/sarsa%20taxi.png)
 
+![taxi_sarsa](https://machinelearningjourney.com/wp-content/uploads/2020/07/Taxi-demo.gif)
+
 ### Resources:
 1. Chapter 5 from [Sutton and Barto](http://incompleteideas.net/book/RLbook2020.pdf)
 2. David Silver's course - [Lectures 4 and 5](https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ)
